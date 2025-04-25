@@ -1,15 +1,40 @@
+'********************
+'* Helper Functions *
+'********************
+'Function to return the number of used rows on a sheet.
+Private Function iRowCount(ThisSheet As Worksheet) As Integer
+    Dim lCount As Long
+    With ThisSheet
+        For lCount = 1 To 1500
+            If .Cells(lCount, 1).Value <> "" Then
+                iRowCount = lCount
+            End If
+        Next
+    End With
+End Function
+'Function to return the number of used columns on a sheet.
+Private Function iColumnCount(ThisSheet As Worksheet) As Integer
+    Dim lCount As Long
+    With ThisSheet
+        For lCount = 1 To 1000
+            If .Cells(1, lCount).Value <> "" Then
+                iColumnCount = lCount
+            End If
+        Next
+    End With
+End Function
+'***************************************
+'* Availability Chronic Cells - 7 Days *
+'***************************************
 Sub AvailabilityChronicCells_7Days()
-'
-' AvailabilityChronicCells_7Days Macro
-' Availability Chronic Cells - 7 Days
-'
-
-'
+    Dim wsFirstSheet As Worksheet
+    Set wsFirstSheet = Application.ThisWorkbook.Sheets(1)
+    Dim iLastRow As Integer
     Rows("1:4").Select
     Selection.Delete Shift:=xlUp
     Columns("A:A").Select
     Selection.Delete Shift:=xlToLeft
-    Range("A1:K1").Select
+    Rows(1).Select
     With Selection.Font
         .Name = "Calibri"
         .Size = 10
@@ -92,20 +117,15 @@ Sub AvailabilityChronicCells_7Days()
     Sheets("Sheet1").Select
     Sheets("Sheet1").Name = "QTD & DAILY DATA"
 End Sub
-
-
+'*********************************
+'* Change dashes in data to 100% *
+'*********************************
 Sub DashTo100()
-'
-' DashTo100 Macro
-'
-
-'
-	Sheets("Availability 7 Days").Select
+    Sheets("Availability 7 Days").Select
     Columns("E:K").Select
     Selection.Replace What:="-", Replacement:="100%", LookAt:=xlPart, _
         SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
         ReplaceFormat:=False, FormulaVersion:=xlReplaceFormula2
-    Selection.Font.Size = 10
     Selection.FormatConditions.Add Type:=xlCellValue, Operator:=xlEqual, _
         Formula1:="=1"
     Selection.FormatConditions(Selection.FormatConditions.Count).SetFirstPriority
@@ -119,19 +139,18 @@ Sub DashTo100()
         .TintAndShade = 0
     End With
     Selection.FormatConditions(1).StopIfTrue = False
-	ActiveSheet.Range("$A$1:$O$279").AutoFilter Field:=15, Criteria1:="BAD"
-Columns("A:D").Select
+    ActiveSheet.Range("$A$1:$O$279").AutoFilter Field:=15, Criteria1:="BAD"
+    Columns("A:D").Select
     Columns("A:D").EntireColumn.AutoFit
     ActiveWindow.LargeScroll ToRight:=-1
     Columns("O:O").Select
     Selection.EntireColumn.Hidden = True
     Columns("N:N").Select
     Selection.ColumnWidth = 103
-Columns("L:L").Select
+    Columns("L:L").Select
     Selection.Delete Shift:=xlToLeft
 
-ActiveSheet.Range("$A$1:$O$11999").AutoFilter Field:=5, Criteria1:="<>"
+    ActiveSheet.Range("$A$1:$O$11999").AutoFilter Field:=5, Criteria1:="<>"
     ActiveSheet.Range("$A$1:$O$11999").AutoFilter Field:=5, Criteria1:=RGB(128 _
         , 0, 0), Operator:=xlFilterCellColor
-    
 End Sub
