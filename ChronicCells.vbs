@@ -12,18 +12,6 @@ Sub AvailabilityChronicCells_7Days()
     Range("A1:K1").Select
     With Selection.Font
         .Name = "Calibri"
-        .Strikethrough = False
-        .Superscript = False
-        .Subscript = False
-        .OutlineFont = False
-        .Shadow = False
-        .Underline = xlUnderlineStyleNone
-        .Color = -10921639
-        .TintAndShade = 0
-        .ThemeFont = xlThemeFontMinor
-    End With
-    With Selection.Font
-        .Name = "Calibri"
         .Size = 10
         .Strikethrough = False
         .Superscript = False
