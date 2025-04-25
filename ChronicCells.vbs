@@ -2,22 +2,22 @@
 '* Helper Functions *
 '********************
 'Function to return the number of used rows on a sheet.
-Private Function iRowCount(ThisSheet As Worksheet) As Integer
+Private Function iRowCount(ThisSheet As Worksheet, iColumn as Integer) As Integer
     Dim lCount As Long
     With ThisSheet
         For lCount = 1 To 1500
-            If .Cells(lCount, 1).Value <> "" Then
+            If .Cells(lCount, iColumn).Value <> "" Then
                 iRowCount = lCount
             End If
         Next
     End With
 End Function
 'Function to return the number of used columns on a sheet.
-Private Function iColumnCount(ThisSheet As Worksheet) As Integer
+Private Function iColumnCount(ThisSheet As Worksheet, iRow as Integer) As Integer
     Dim lCount As Long
     With ThisSheet
         For lCount = 1 To 1000
-            If .Cells(1, lCount).Value <> "" Then
+            If .Cells(iRow, lCount).Value <> "" Then
                 iColumnCount = lCount
             End If
         Next
